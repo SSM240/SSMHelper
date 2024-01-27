@@ -33,9 +33,6 @@ entities.SSMHelper/DashBoostField.attributes.description.radius=The radius of th
 entities.SSMHelper/DashBoostField.attributes.name.preserve=Preserve Dash
 entities.SSMHelper/DashBoostField.attributes.description.preserve=Whether or not the field will save the player's dash when dashing within it.
 
-entities.SSMHelper/HoldableDashTrigger.placements.name.normal=Dash With Holdable Trigger
-entities.SSMHelper/HoldableDashTrigger.attributes.description.mode="Toggle" will set or clear a session flag that allows dashing anywhere.\n"OnStay" will force the ability to be on/off while inside the trigger, regardless of what the session flag is set to.
-
 entities.SSMHelper/BarrierDashSwitch.placements.name.Left=Barrier Dash Switch (Left)
 entities.SSMHelper/BarrierDashSwitch.placements.name.Right=Barrier Dash Switch (Right)
 entities.SSMHelper/BarrierDashSwitch.attributes.description.orientation=Which way the switch should be facing.
@@ -58,3 +55,5 @@ triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
 triggers.SSMHelper/DashCancelTrigger.attributes.description.playSound=Makes a sound play when the dash is canceled.
 triggers.SSMHelper/ChangeMaxCassetteTrigger.placements.name.normal=Change Max Cassette Beat
 triggers.SSMHelper/TheoKillBoxTrigger.placements.name.normal=Theo Kill Box Trigger
+triggers.SSMHelper/HoldableDashTrigger.placements.name.normal=Dash With Holdable Trigger
+triggers.SSMHelper/HoldableDashTrigger.attributes.description.mode="Toggle" will set or clear a session flag that allows dashing anywhere.\n"OnStay" will force the ability to be on/off while inside the trigger, regardless of what the session flag is set to.
