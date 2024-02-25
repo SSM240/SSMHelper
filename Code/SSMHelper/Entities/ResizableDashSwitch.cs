@@ -204,6 +204,7 @@ namespace Celeste.Mod.SSMHelper.Entities
             else
             { // otherwise, just move without doing that
                 Position += amount;
+                MoveStaticMovers(amount);
             }
             pressedTarget += amount;
             startY += amount.Y;
