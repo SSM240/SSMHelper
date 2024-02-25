@@ -198,8 +198,8 @@ namespace Celeste.Mod.SSMHelper.Entities
             // if currently solid, move player and stuff along
             if (Collidable)
             {
-                MoveH(amount.X);
-                MoveV(amount.Y);
+                MoveH(amount.X, staticMover.Platform.LiftSpeed.X);
+                MoveV(amount.Y, staticMover.Platform.LiftSpeed.Y);
             }
             else
             { // otherwise, just move without doing that
