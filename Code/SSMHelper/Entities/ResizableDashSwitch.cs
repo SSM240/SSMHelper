@@ -147,7 +147,12 @@ namespace Celeste.Mod.SSMHelper.Entities
                     };
                     if (collided)
                     {
+                        Vector2 oldCurrentLiftSpeed = player.currentLiftSpeed;
+                        Vector2 oldLastLiftSpeed = player.lastLiftSpeed;
                         OnDashed(player, pressDirection);
+                        // revert whatever liftboost was gained from the dash switch going in
+                        player.currentLiftSpeed = oldCurrentLiftSpeed;
+                        player.lastLiftSpeed = oldLastLiftSpeed;
                         //player.Speed *= -1f;
                         if (bounceInDreamBlock)
                         {
