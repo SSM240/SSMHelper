@@ -53,7 +53,17 @@ entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.canChangeMusic
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
 triggers.SSMHelper/DashCancelTrigger.attributes.description.playSound=Makes a sound play when the dash is canceled.
+
 triggers.SSMHelper/ChangeMaxCassetteTrigger.placements.name.normal=Change Max Cassette Beat
+
 triggers.SSMHelper/TheoKillBoxTrigger.placements.name.normal=Theo Kill Box Trigger
+
 triggers.SSMHelper/HoldableDashTrigger.placements.name.normal=Dash With Holdable Trigger
 triggers.SSMHelper/HoldableDashTrigger.attributes.description.mode="Toggle" will set or clear a session flag that allows dashing anywhere.\n"OnStay" will force the ability to be on/off while inside the trigger, regardless of what the session flag is set to.
+
+triggers.SSMHelper/CustomCheatTrigger.placements.name.normal=Custom Cheat Code Trigger
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.code=The code to enter. Each character is one input. Available inputs:\nu: up\nd: down\nr: right\nl: left\nc: menu confirm\nb: menu cancel\nj: menu journal\nJ: jump\nD: dash\nG: grab\nZ: demo / crouch dash\nT: talk
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.soundEffect=Sound effect to play when the code is entered.\nCan be either an event name or a simple handle.\nLeave empty for no sound.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.flag=The flag to change when the code is entered.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.enableFlag=Whether the flag should be enabled or disabled.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.ignoreDirections=If checked, directional inputs (up, down, left, right) will be completely ignored.
