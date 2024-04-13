@@ -23,6 +23,7 @@ entities.SSMHelper/ResizableDashSwitch.attributes.description.persistent=If true
 entities.SSMHelper/ResizableDashSwitch.attributes.description.actLikeTouchSwitch=If true, pressing all switches will activate switch gates.
 entities.SSMHelper/ResizableDashSwitch.attributes.description.attachToSolid=If true, the switch will attach to any solid it's placed on.
 entities.SSMHelper/ResizableDashSwitch.attributes.description.bounceInDreamBlock=If true, hitting the switch while in a dream block will bounce the player off of the switch.
+entities.SSMHelper/ResizableDashSwitch.attributes.description.spritePath=Defaults to 'objects/SSMHelper/bigDashSwitch' if empty.\nWill not affect the "lightning" textures.
 
 entities.SSMHelper/DashBoostField.placements.name.useDash=Nyom Buble (Use Dash)
 entities.SSMHelper/DashBoostField.placements.name.preserveDash=Nyom Buble (Preserve Dash)
