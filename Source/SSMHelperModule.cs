@@ -17,6 +17,14 @@ namespace Celeste.Mod.SSMHelper
         public SSMHelperModule()
         {
             Instance = this;
+
+#if DEBUG
+            // debug builds use verbose logging
+            Logger.SetLogLevel(nameof(SSMHelperModule), LogLevel.Verbose);
+#else
+            // release builds use info logging to reduce spam in log files
+            Logger.SetLogLevel(nameof(SSMHelperModule), LogLevel.Info);
+#endif
         }
 
         public override void Load()
