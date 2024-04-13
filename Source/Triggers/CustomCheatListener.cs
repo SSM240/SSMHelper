@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.SSMHelper.Triggers
 {
+    /// <summary>
+    /// A reworked version of <see cref="CheatListener"/> that's more lenient 
+    /// with overlapping inputs.
+    /// </summary>
     public class CustomCheatListener : Entity
     {
         public string CurrentCheatInput;
@@ -60,7 +64,7 @@ namespace Celeste.Mod.SSMHelper.Triggers
             {
                 return;
             }
-            if (inputsThisFrame.Length > 4) // prevent cheese
+            if (ContainsConflictingInputs(inputsThisFrame))
             {
                 CurrentCheatInput = "";
                 currentIndex = 0;
@@ -71,6 +75,7 @@ namespace Celeste.Mod.SSMHelper.Triggers
                 currentIndex++;
             }
             // if it's the wrong input, reset, but still count it if it matches the first input
+            // not perfect but keeping track of it better would be a headache
             else if (inputsThisFrame.Contains(cheatCode[0]))
             {
                 CurrentCheatInput = cheatCode[0].ToString();
@@ -103,6 +108,31 @@ namespace Celeste.Mod.SSMHelper.Triggers
         public void AddInput(char id, VirtualButton button)
         {
             inputs.Add(new(id, button));
+        }
+
+        // we're intentionally allowing keys with multiple actions to count for any of them in a code
+        // but there are a few combos where i don't think anyone should expect them to work
+        // this should help prevent cheesing
+        private static readonly (char, char)[] conflictingInputs = [
+            ('l', 'r'),
+            ('u', 'd'),
+            ('c', 'b'),
+            ('J', 'D'),
+        ];
+        private static bool ContainsConflictingInputs(string inputs)
+        {
+            if (inputs.Length > 4) // this is also very unlikely naturally i think
+            {
+                return true;
+            }
+            foreach ((char char1, char char2) in conflictingInputs)
+            {
+                if (inputs.Contains(char1) && inputs.Contains(char2))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
