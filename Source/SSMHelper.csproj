@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -58,6 +58,7 @@
             <Code Type="Fragment" Language="cs">
             <![CDATA[
                 var projectDir = Path.Combine(@"$(ProjectDir)", ".."); // Go one level up, since we're inside the 'Source' directory
+                projectDir = Uri.UnescapeDataString(projectDir);
             
                 if (File.Exists(OutputPath))
                     File.Delete(OutputPath);
