@@ -68,7 +68,7 @@
                     foreach (var file in Files)
                     {
                         string filePath = file.GetMetadata("FullPath");
-                        string entryName = GetRelativePath(projectDir, filePath);
+                        string entryName = GetRelativePath(projectDir, filePath).Replace('\\', '/');
                         
                         zip.CreateEntryFromFile(filePath, entryName);
                     }
