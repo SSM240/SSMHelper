@@ -68,7 +68,7 @@
                     foreach (var file in Files)
                     {
                         string filePath = file.GetMetadata("FullPath");
-                        string entryName = GetRelativePath(projectDir, filePath).Replace('\\', '/');
+                        string entryName = GetRelativePath(projectDir, filePath);
                         
                         zip.CreateEntryFromFile(filePath, entryName);
                     }
@@ -89,7 +89,7 @@
                 
                     if (toUri.Scheme.Equals("file", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        relativePath = relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                        relativePath = relativePath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                     }
                 
                     return relativePath;
