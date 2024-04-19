@@ -16,7 +16,8 @@ for i, dir in ipairs(directions) do
             persistent = false,
             actLikeTouchSwitch = true,
             attachToSolid = true,
-            bounceInDreamBlock = true
+            bounceInDreamBlock = true,
+            spritePath = ""
         }
     }
 end

@@ -29,6 +29,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         private List<Image> switchImages = new();
         private bool bounceInDreamBlock;
         private StaticMover staticMover;
+        private string spritePath;
 
         private int widthTiles => width / 8;
 
@@ -46,7 +47,8 @@ namespace Celeste.Mod.SSMHelper.Entities
         #region Constructor stuff
 
         public ResizableDashSwitch(Vector2 position, Sides side, bool persistent, EntityID id, 
-          int width, bool actLikeTouchSwitch, bool attachToSolid, bool bounceInDreamBlock)
+          int width, bool actLikeTouchSwitch, bool attachToSolid, bool bounceInDreamBlock,
+          string spritePath)
             : base(position, side, persistent, false, id, "default")
         {
             Side = side;
@@ -85,6 +87,7 @@ namespace Celeste.Mod.SSMHelper.Entities
 
             SurfaceSoundIndex = SurfaceIndex.DreamBlockInactive;
 
+            this.spritePath = spritePath;
             Remove(sprite);
             CreateSprite(0);
         }
@@ -92,7 +95,8 @@ namespace Celeste.Mod.SSMHelper.Entities
         public ResizableDashSwitch(EntityData data, Vector2 offset, EntityID id)
             : this(data.Position + offset, SwapSide(data.Enum("orientation", Sides.Up)),
                   data.Bool("persistent"), id, GetWidth(data), data.Bool("actLikeTouchSwitch", true),
-                  data.Bool("attachToSolid", true), data.Bool("bounceInDreamBlock", true))
+                  data.Bool("attachToSolid", true), data.Bool("bounceInDreamBlock", true),
+                  data.Attr("spritePath", ""))
         { }
 
         private static Sides SwapSide(Sides side) => side switch
@@ -147,7 +151,12 @@ namespace Celeste.Mod.SSMHelper.Entities
                     };
                     if (collided)
                     {
+                        Vector2 oldCurrentLiftSpeed = player.currentLiftSpeed;
+                        Vector2 oldLastLiftSpeed = player.lastLiftSpeed;
                         OnDashed(player, pressDirection);
+                        // revert whatever liftboost was gained from the dash switch going in
+                        player.currentLiftSpeed = oldCurrentLiftSpeed;
+                        player.lastLiftSpeed = oldLastLiftSpeed;
                         //player.Speed *= -1f;
                         if (bounceInDreamBlock)
                         {
@@ -193,12 +202,13 @@ namespace Celeste.Mod.SSMHelper.Entities
             // if currently solid, move player and stuff along
             if (Collidable)
             {
-                MoveH(amount.X);
-                MoveV(amount.Y);
+                MoveH(amount.X, staticMover.Platform.LiftSpeed.X);
+                MoveV(amount.Y, staticMover.Platform.LiftSpeed.Y);
             }
             else
             { // otherwise, just move without doing that
                 Position += amount;
+                MoveStaticMovers(amount);
             }
             pressedTarget += amount;
             startY += amount.Y;
@@ -255,7 +265,12 @@ namespace Celeste.Mod.SSMHelper.Entities
                     throw new InvalidOperationException("Dash switch direction is invalid.");
             }
 
-            MTexture switchTexture = GFX.Game[$"objects/SSMHelper/bigDashSwitch/bigSwitch{index:D2}"];
+            string path = spritePath;
+            if (string.IsNullOrEmpty(path))
+            {
+                path = "objects/SSMHelper/bigDashSwitch";
+            }
+            MTexture switchTexture = GFX.Game[$"{path}/bigSwitch{index:D2}"];
             Vector2 currentPos = startPos;
             for (int i = 0; i < widthTiles; i++)
             {
@@ -282,7 +297,7 @@ namespace Celeste.Mod.SSMHelper.Entities
                 currentPos += posIncrement;
             }
 
-            Image midImage = new Image(GFX.Game[$"objects/SSMHelper/bigDashSwitch/bigSwitchMid{index:D2}"]);
+            Image midImage = new Image(GFX.Game[$"{path}/bigSwitchMid{index:D2}"]);
             midImage.JustifyOrigin(0.5f, 0.5f);
             midImage.Position = Center - Position;
             midImage.Rotation = SwitchRotation;

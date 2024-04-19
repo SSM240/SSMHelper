@@ -27,6 +27,7 @@ entities.SSMHelper/ResizableDashSwitch.attributes.description.persistent=If true
 entities.SSMHelper/ResizableDashSwitch.attributes.description.actLikeTouchSwitch=If true, pressing all switches will activate switch gates.
 entities.SSMHelper/ResizableDashSwitch.attributes.description.attachToSolid=If true, the switch will attach to any solid it's placed on.
 entities.SSMHelper/ResizableDashSwitch.attributes.description.bounceInDreamBlock=If true, hitting the switch while in a dream block will bounce the player off of the switch.
+entities.SSMHelper/ResizableDashSwitch.attributes.description.spritePath=Defaults to 'objects/SSMHelper/bigDashSwitch' if empty.\nWill not affect the "lightning" textures.
 
 entities.SSMHelper/DashBoostField.placements.name.useDash=Nyom Buble (Use Dash)
 entities.SSMHelper/DashBoostField.placements.name.preserveDash=Nyom Buble (Preserve Dash)
@@ -36,9 +37,6 @@ entities.SSMHelper/DashBoostField.attributes.description.timeRateMultiplier=How 
 entities.SSMHelper/DashBoostField.attributes.description.radius=The radius of the effect, in tiles.
 entities.SSMHelper/DashBoostField.attributes.name.preserve=Preserve Dash
 entities.SSMHelper/DashBoostField.attributes.description.preserve=Whether or not the field will save the player's dash when dashing within it.
-
-entities.SSMHelper/HoldableDashTrigger.placements.name.normal=Dash With Holdable Trigger
-entities.SSMHelper/HoldableDashTrigger.attributes.description.mode="Toggle" will set or clear a session flag that allows dashing anywhere.\n"OnStay" will force the ability to be on/off while inside the trigger, regardless of what the session flag is set to.
 
 entities.SSMHelper/BarrierDashSwitch.placements.name.Left=Barrier Dash Switch (Left)
 entities.SSMHelper/BarrierDashSwitch.placements.name.Right=Barrier Dash Switch (Right)
@@ -60,5 +58,17 @@ entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.canChangeMusic
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
 triggers.SSMHelper/DashCancelTrigger.attributes.description.playSound=Makes a sound play when the dash is canceled.
+
 triggers.SSMHelper/ChangeMaxCassetteTrigger.placements.name.normal=Change Max Cassette Beat
+
 triggers.SSMHelper/TheoKillBoxTrigger.placements.name.normal=Theo Kill Box Trigger
+
+triggers.SSMHelper/HoldableDashTrigger.placements.name.normal=Dash With Holdable Trigger
+triggers.SSMHelper/HoldableDashTrigger.attributes.description.mode="Toggle" will set or clear a session flag that allows dashing anywhere.\n"OnStay" will force the ability to be on/off while inside the trigger, regardless of what the session flag is set to.
+
+triggers.SSMHelper/CustomCheatTrigger.placements.name.normal=Custom Cheat Code Trigger
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.code=The code to enter. Each character is one input. Available inputs:\nu: up\nd: down\nr: right\nl: left\nc: menu confirm\nb: menu cancel\nj: menu journal\nJ: jump\nD: dash\nG: grab\nZ: demo / crouch dash\nT: talk
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.soundEffect=Sound effect to play when the code is entered.\nCan be either an event name or a simple handle.\nLeave empty for no sound.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.flag=The flag to change when the code is entered.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.enableFlag=Whether the flag should be enabled or disabled.
+triggers.SSMHelper/CustomCheatTrigger.attributes.description.ignoreDirections=If checked, directional inputs (up, down, left, right) will be completely ignored.
