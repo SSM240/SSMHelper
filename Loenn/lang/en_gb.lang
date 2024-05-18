@@ -50,6 +50,8 @@ entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.cameraLockY=Wh
 entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.cameraPastY=Locks the camera from vertically rising, and changes the bottom screen killbox plane to be under Badeline's current position.
 entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.canChangeMusic=Whether the boss should be able to change the music to the boss track.
 
+entities.SSMHelper/BloomPulseController.placements.name.normal=Bloom Pulse Controller
+
 # ------------ triggers ------------
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
