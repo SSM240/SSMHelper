@@ -52,6 +52,8 @@ entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.canChangeMusic
 
 entities.SSMHelper/BloomPulseController.placements.name.normal=Bloom Pulse Controller
 
+entities.SSMHelper/ForceLightningLoadController.placements.name.normal=Force Lightning Load Controller
+
 # ------------ triggers ------------
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger

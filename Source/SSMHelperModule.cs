@@ -37,6 +37,7 @@ namespace Celeste.Mod.SSMHelper
             BarrierDashSwitch.Load();
             CrystalBombBadelineBoss.Load();
             HoldableDashTrigger.Load();
+            ForceLightningLoadController.Load();
 
             typeof(CavernHelperImports).ModInterop();
         }
@@ -51,6 +52,7 @@ namespace Celeste.Mod.SSMHelper
             BarrierDashSwitch.Unload();
             CrystalBombBadelineBoss.Unload();
             HoldableDashTrigger.Unload();
+            ForceLightningLoadController.Unload();
         }
 
         public override void LoadContent(bool firstLoad)
