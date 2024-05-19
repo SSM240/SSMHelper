@@ -54,6 +54,20 @@ entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.cameraLockY=Wh
 entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.cameraPastY=Locks the camera from vertically rising, and changes the bottom screen killbox plane to be under Badeline's current position.
 entities.SSMHelper/CrystalBombBadelineBoss.attributes.description.canChangeMusic=Whether the boss should be able to change the music to the boss track.
 
+entities.SSMHelper/BloomPulseController.placements.name.normal=Bloom Pulse Controller
+entities.SSMHelper/BloomPulseController.attributes.description.bloomStrengthFrom=The bloom strength at the start of the cycle.
+entities.SSMHelper/BloomPulseController.attributes.description.bloomStrengthTo=The bloom strength at the end of the cycle.
+entities.SSMHelper/BloomPulseController.attributes.description.bloomBaseFrom=The bloom base at the start of the cycle.
+entities.SSMHelper/BloomPulseController.attributes.description.bloomBaseTo=The bloom base at the end of the cycle.
+entities.SSMHelper/BloomPulseController.attributes.description.duration=The duration of the cycle.
+entities.SSMHelper/BloomPulseController.attributes.description.modifyBloomBase=Whether bloom base should be modified by the controller.
+entities.SSMHelper/BloomPulseController.attributes.description.modifyBloomStrength=Whether bloom strength should be modified by the controller.
+entities.SSMHelper/BloomPulseController.attributes.description.tweenMode="YoyoLooping" will make the bloom smoothly fade back to the starting value.\n"Looping" will abruptly cut back to the starting value.
+entities.SSMHelper/BloomPulseController.attributes.description.easer=The function that describes how the bloom value should pulse.
+entities.SSMHelper/BloomPulseController.attributes.description.persistent=If the controller should persist between screen transitions.\n\nIntended to be used in conjunction with the global room loading feature\nfrom the "bits & bolts" mod, with "Not During Transition" set to true.
+
+entities.SSMHelper/ForceLightningLoadController.placements.name.normal=Force Lightning Load Controller
+
 # ------------ triggers ------------
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
