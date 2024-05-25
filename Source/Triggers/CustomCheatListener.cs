@@ -144,6 +144,7 @@ namespace Celeste.Mod.SSMHelper.Triggers
         }
 
         // this shit sucks ass
+        // (this is the only way to ignore the buffer system entirely)
         private HashSet<VirtualButton> buttonsHeldLastFrame = new();
         private bool PressedThisFrameSpecifically(VirtualButton button)
         {
