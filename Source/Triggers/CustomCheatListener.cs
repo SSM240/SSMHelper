@@ -10,13 +10,26 @@ namespace Celeste.Mod.SSMHelper.Triggers
     /// </summary>
     public class CustomCheatListener : Entity
     {
-        public string CurrentCheatInput;
         private int currentIndex;
 
         private List<(char, VirtualButton)> inputs;
 
         private string cheatCode;
         private Action OnEntered;
+
+        private string _currentCheatInput;
+        public string CurrentCheatInput
+        {
+            get
+            {
+                return _currentCheatInput;
+            }
+            set
+            {
+                _currentCheatInput = value;
+                currentIndex = _currentCheatInput.Length;
+            }
+        }
 
         public CustomCheatListener(string code, Action onEntered, bool ignoreDirections = false)
         {
@@ -50,16 +63,16 @@ namespace Celeste.Mod.SSMHelper.Triggers
         public override void Update()
         {
             string inputsThisFrame = "";
-            foreach ((char id, VirtualButton input) in inputs)
+            foreach ((char id, VirtualButton button) in inputs)
             {
-                if (!inputsLastFrame.Contains(id) && input.Pressed)
+                if (!inputsLastFrame.Contains(id) && PressedThisFrameSpecifically(button))
                 {
-                    input.ConsumeBuffer();
                     inputsThisFrame += id;
                 }
             }
 
             inputsLastFrame = inputsThisFrame;
+            UpdateButtonsHeldLastFrame();
             if (inputsThisFrame == "")
             {
                 return;
@@ -67,24 +80,20 @@ namespace Celeste.Mod.SSMHelper.Triggers
             if (ContainsConflictingInputs(inputsThisFrame))
             {
                 CurrentCheatInput = "";
-                currentIndex = 0;
             }
             else if (inputsThisFrame.Contains(cheatCode[currentIndex]))
             {
                 CurrentCheatInput += cheatCode[currentIndex];
-                currentIndex++;
             }
             // if it's the wrong input, reset, but still count it if it matches the first input
             // not perfect but keeping track of it better would be a headache
             else if (inputsThisFrame.Contains(cheatCode[0]))
             {
                 CurrentCheatInput = cheatCode[0].ToString();
-                currentIndex = 1;
             }
             else
             {
                 CurrentCheatInput = "";
-                currentIndex = 0;
             }
 
             if (lastInput != CurrentCheatInput)
@@ -101,7 +110,6 @@ namespace Celeste.Mod.SSMHelper.Triggers
                 }
                 Logger.Log(LogLevel.Verbose, nameof(SSMHelperModule), $"Cheat entered successfully: {CurrentCheatInput}");
                 CurrentCheatInput = "";
-                currentIndex = 0;
             }
         }
 
@@ -133,6 +141,25 @@ namespace Celeste.Mod.SSMHelper.Triggers
                 }
             }
             return false;
+        }
+
+        // this shit sucks ass
+        // (this is the only way to ignore the buffer system entirely)
+        private HashSet<VirtualButton> buttonsHeldLastFrame = new();
+        private bool PressedThisFrameSpecifically(VirtualButton button)
+        {
+            return !buttonsHeldLastFrame.Contains(button) && button.Pressed;
+        }
+        private void UpdateButtonsHeldLastFrame()
+        {
+            buttonsHeldLastFrame.Clear();
+            foreach ((_, VirtualButton button) in inputs)
+            {
+                if (button.Check)
+                {
+                    buttonsHeldLastFrame.Add(button);
+                }
+            }
         }
     }
 }
