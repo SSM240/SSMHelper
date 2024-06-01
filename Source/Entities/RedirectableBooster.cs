@@ -31,13 +31,12 @@ namespace Celeste.Mod.SSMHelper.Entities
         public Vector2 AimDirection;
 
         private Sprite[] sprites = new Sprite[3];
-        private int currentSprite;
+        private int currentSpriteIndex;
 
         private BoosterDashAssistArrow dashAssistArrow;
 
         public RedirectableBooster(EntityData data, Vector2 offset) : base(data.Position + offset, true)
         {
-
             Add(dashAssistArrow = new BoosterDashAssistArrow());
 
             Add(sprites[0] = SSMHelperModule.SpriteBank.Create("boosterBlue"));
@@ -50,7 +49,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         {
             base.Update();
 
-            if (!BoostingPlayer && currentSprite == 2 && Scene.OnInterval(0.15f))
+            if (!BoostingPlayer && currentSpriteIndex == 2 && Scene.OnInterval(0.15f))
             {
                 SceneAs<Level>().ParticlesFG.Emit(P_PinkBoosterGlow, 2, sprite.RenderPosition, Vector2.One * 11f);
             }
@@ -156,7 +155,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         private void SetSprite(int index)
         {
             index = Calc.Clamp(index, 0, 2);
-            if (index == currentSprite)
+            if (index == currentSpriteIndex)
             {
                 return;
             }
@@ -171,7 +170,7 @@ namespace Celeste.Mod.SSMHelper.Entities
             sprites[index].Visible = true;
             sprite = sprites[index];
             particleType = burstParticleTypes[index];
-            currentSprite = index;
+            currentSpriteIndex = index;
         }
 
         private new void AppearParticles()

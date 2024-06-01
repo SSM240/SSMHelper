@@ -17,8 +17,7 @@ namespace Celeste.Mod.SSMHelper.Entities
 
         private Hitbox detectHitbox;
 
-        public SeekerCrushZone(Vector2 position, int width, int height, 
-            char tile1, char tile2)
+        public SeekerCrushZone(Vector2 position, int width, int height)
             : base(position)
         {
             Collider = new Hitbox(width, height);
@@ -26,8 +25,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         }
 
         public SeekerCrushZone(EntityData data, Vector2 offset)
-            : this(data.Position + offset, data.Width, data.Height,
-                  data.Char("tile1", 'g'), data.Char("tile2", 'G'))
+            : this(data.Position + offset, data.Width, data.Height)
         {
         }
 
@@ -41,7 +39,7 @@ namespace Celeste.Mod.SSMHelper.Entities
             base.Update();
             if (!activated)
             {
-                Collider collider = Collider;
+                Collider normalCollider = Collider;
                 Collider = detectHitbox;
                 Level level = SceneAs<Level>();
                 foreach (Seeker seeker in level.Tracker.GetEntities<Seeker>())
@@ -55,7 +53,7 @@ namespace Celeste.Mod.SSMHelper.Entities
                         break;
                     }
                 }
-                Collider = collider;
+                Collider = normalCollider;
             }
             else if (capturedSeeker != null)
             {
