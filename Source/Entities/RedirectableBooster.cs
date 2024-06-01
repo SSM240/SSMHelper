@@ -282,6 +282,14 @@ namespace Celeste.Mod.SSMHelper.Entities
             // this method does not affect refill gems for some reason so it works for me :)
             if (self.LastBooster is RedirectableBooster booster && booster.BoostingPlayer)
             {
+                Engine.Scene.OnEndOfFrame += () =>
+                {
+                    // refill dash anyway if the bubble was exited on the same frame
+                    if (self.StateMachine.State != Player.StRedDash)
+                    {
+                        self.Dashes = self.MaxDashes;
+                    }
+                };
                 return false;
             }
             return orig(self);
