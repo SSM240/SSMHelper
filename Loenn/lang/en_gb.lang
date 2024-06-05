@@ -86,3 +86,5 @@ triggers.SSMHelper/CustomCheatTrigger.attributes.description.soundEffect=Sound e
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.flag=The flag to change when the code is entered.
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.enableFlag=Whether the flag should be enabled or disabled.
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.ignoreDirections=If checked, directional inputs (up, down, left, right) will be completely ignored.
+
+triggers.SSMHelper/SeekerSpawnFacingTrigger.placements.name.normal=Seeker Spawn Facing Trigger

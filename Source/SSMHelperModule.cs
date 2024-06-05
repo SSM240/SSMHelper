@@ -42,6 +42,7 @@ namespace Celeste.Mod.SSMHelper
             CrystalBombBadelineBoss.Load();
             HoldableDashTrigger.Load();
             ForceLightningLoadController.Load();
+            SeekerSpawnFacingTrigger.Load();
 
             typeof(CavernHelperImports).ModInterop();
         }
@@ -61,6 +62,7 @@ namespace Celeste.Mod.SSMHelper
             CrystalBombBadelineBoss.Unload();
             HoldableDashTrigger.Unload();
             ForceLightningLoadController.Unload();
+            SeekerSpawnFacingTrigger.Unload();
         }
 
         public override void LoadContent(bool firstLoad)
