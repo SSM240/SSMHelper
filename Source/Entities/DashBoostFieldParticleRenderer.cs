@@ -15,6 +15,8 @@ namespace Celeste.Mod.SSMHelper.Entities
         // thank you to Vexatos for being better at math than me
         private float ParticlePositionRadius => (float)Math.Sqrt(BoostField.Radius * (BoostField.Radius + 75f));
 
+        private float maximumDistance;
+
         public DashBoostFieldParticleRenderer()
             : base(active: true, visible: true) { }
 
@@ -26,6 +28,8 @@ namespace Celeste.Mod.SSMHelper.Entities
             {
                 particles.Add(new Particle(this));
             }
+            // err on the side of generosity
+            maximumDistance = BoostField.Radius - 1f;
         }
 
         public override void Update()
@@ -43,25 +47,41 @@ namespace Celeste.Mod.SSMHelper.Entities
         public override void Render()
         {
             base.Render();
+            if (!InView())
+            {
+                return;
+            }
             foreach (Particle particle in particles)
             {
                 particle.Alpha = (particle.Percent >= 0.7f)
                     ? Calc.ClampedMap(particle.Percent, 0.7f, 1f, 1f, 0f)
                     : Calc.ClampedMap(particle.Percent, 0f, 0.3f);
-                // err on the side of generosity
-                float maximumDistance = BoostField.Radius - 1f;
-                if (Vector2.Distance(BoostField.Center, particle.Position) <= maximumDistance)
+                if (Vector2.DistanceSquared(BoostField.Center, particle.Position) <= maximumDistance * maximumDistance)
                 {
                     particle.RenderPosition = particle.Position;
                 }
                 else
                 {
                     // clamp particle's render position to boost field radius to create a sort of halo
-                    float angle = Calc.Angle(BoostField.Center, particle.Position);
-                    particle.RenderPosition = BoostField.Center + Calc.AngleToVector(angle, maximumDistance);
+                    Vector2 offset = particle.Position - BoostField.Center;
+                    particle.RenderPosition = BoostField.Center + offset.SafeNormalize() * maximumDistance;
                 }
                 Draw.Point(particle.RenderPosition, particle.Color * particle.Alpha);
             }
+        }
+
+        private bool InView()
+        {
+            Camera camera = (base.Scene as Level).Camera;
+            Vector2 center = BoostField.Center;
+            float left = center.X - ParticlePositionRadius;
+            float right = center.X + ParticlePositionRadius;
+            float top = center.Y - ParticlePositionRadius;
+            float bottom = center.Y + ParticlePositionRadius;
+            return camera.X + 320f > left - 8f
+                && camera.X < right + 8f
+                && camera.Y + 180f > top - 8f
+                && camera.Y < bottom - 8f;
         }
 
         private class Particle
