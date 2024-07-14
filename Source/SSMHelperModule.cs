@@ -36,7 +36,6 @@ namespace Celeste.Mod.SSMHelper
             RedirectableBooster.Load();
             SeekerCrushBarrier.Load();
             SeekerCrushBarrierRenderer.Load();
-            SeekerCrushZone.Load();
             DashBoostField.Load();
             BarrierDashSwitch.Load();
             CrystalBombBadelineBoss.Load();
@@ -56,7 +55,6 @@ namespace Celeste.Mod.SSMHelper
             RedirectableBooster.Unload();
             SeekerCrushBarrier.Unload();
             SeekerCrushBarrierRenderer.Unload();
-            SeekerCrushZone.Unload();
             DashBoostField.Unload();
             BarrierDashSwitch.Unload();
             CrystalBombBadelineBoss.Unload();

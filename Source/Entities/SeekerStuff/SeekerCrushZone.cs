@@ -30,9 +30,19 @@ namespace Celeste.Mod.SSMHelper.Entities
         {
         }
 
-        public override void Awake(Scene scene)
+        public override void Added(Scene scene)
         {
-            base.Awake(scene);
+            base.Added(scene);
+            Level level = scene as Level;
+            if (level == null)
+            {
+                return;
+            }
+            bool hasRenderer = level.Foreground.Get<SeekerCrushZoneRenderer>() != null;
+            if (!hasRenderer)
+            {
+                level.Foreground.Backdrops.Add(new SeekerCrushZoneRenderer());
+            }
         }
 
         public override void Update()
@@ -88,94 +98,27 @@ namespace Celeste.Mod.SSMHelper.Entities
             Collider = collider;
         }
 
-        public static void Load()
-        {
-            Everest.Events.LevelLoader.OnLoadingThread += LevelLoader_OnLoadingThread;
-        }
-
-        public static void Unload()
-        {
-            Everest.Events.LevelLoader.OnLoadingThread -= LevelLoader_OnLoadingThread;
-        }
-
-        private static void LevelLoader_OnLoadingThread(Level level)
-        {
-            level.Add(new SeekerCrushZoneRenderer());
-        }
-
         /// <summary>
-        /// Renders <see cref="SeekerCrushZone"/>s on the SubHUD layer to avoid being affected by lighting.
+        /// Renders <see cref="SeekerCrushZone"/>s on the FG layer to avoid being affected by lighting.
         /// </summary>
-        private class SeekerCrushZoneRenderer : Entity
+        private class SeekerCrushZoneRenderer : Backdrop
         {
-            private VirtualRenderTarget crushZonesTarget;
-
-            private bool hasSeekerCrushZones;
-
             public SeekerCrushZoneRenderer()
             {
-                Tag = Tags.Global | TagsExt.SubHUD;
-                Add(new BeforeRenderHook(BeforeRender));
+                LoopX = false;
+                LoopY = false;
             }
 
-            private void BeforeRender()
+            public override void Render(Scene scene)
             {
-                List<Entity> crushZones = Scene.Tracker.GetEntities<SeekerCrushZone>();
-                hasSeekerCrushZones = crushZones.Count > 0;
-                if (!hasSeekerCrushZones)
+                base.Render(scene);
+                foreach (SeekerCrushZone zone in scene.Tracker.GetEntities<SeekerCrushZone>())
                 {
-                    return;
-                }
-                crushZonesTarget ??= VirtualContent.CreateRenderTarget("seeker-crush-zones", 320, 180);
-                Engine.Graphics.GraphicsDevice.SetRenderTarget(crushZonesTarget);
-                Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
-                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Matrix.Identity);
-                foreach (Entity entity in crushZones)
-                {
-                    if (entity.Visible)
+                    if (zone.Visible)
                     {
-                        (entity as SeekerCrushZone).Render();
+                        zone.Render();
                     }
                 }
-                Draw.SpriteBatch.End();
-            }
-
-            public override void Render()
-            {
-                if (!hasSeekerCrushZones)
-                {
-                    return;
-                }
-                if (crushZonesTarget != null && !crushZonesTarget.IsDisposed)
-                {
-                    SubHudRenderer.EndRender();
-                    // PointClamp and scale of 6 to basically pretend we're on a gameplay layer
-                    SubHudRenderer.BeginRender(sampler: SamplerState.PointClamp);
-                    Draw.SpriteBatch.Draw((RenderTarget2D)crushZonesTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 6f, SpriteEffects.None, 0f);
-                    SubHudRenderer.EndRender();
-                    SubHudRenderer.BeginRender();
-                }
-            }
-
-            public override void Removed(Scene scene)
-            {
-                base.Removed(scene);
-                Dispose();
-            }
-
-            public override void SceneEnd(Scene scene)
-            {
-                base.SceneEnd(scene);
-                Dispose();
-            }
-
-            public void Dispose()
-            {
-                if (crushZonesTarget != null && !crushZonesTarget.IsDisposed)
-                {
-                    crushZonesTarget.Dispose();
-                }
-                crushZonesTarget = null;
             }
         }
     }
