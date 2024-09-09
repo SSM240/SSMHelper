@@ -362,7 +362,19 @@ namespace Celeste.Mod.SSMHelper.Entities
             float pitch = 1.16f * (float)Math.Pow(quarterTone, -clampedWidthTiles);
             pressSound.setPitch(pitch);
             pressSound.setVolume(0.7f * volume);
-            Alarm.Set(this, 0.05f / Calc.Min(pitch, 1f), () => Audio.Stop(pressSound));
+
+            // set up sound to self-destruct
+            // temp global entity so it still works if the switch gets unloaded immediately
+            Entity alarmEntity = new()
+            {
+                Tag = Tags.Global
+            };
+            Scene.Add(alarmEntity);
+            Alarm.Set(alarmEntity, 0.05f / Calc.Min(pitch, 1f), () =>
+            {
+                Audio.Stop(pressSound);
+                alarmEntity.RemoveSelf();
+            });
         }
 
         private IEnumerator PlayPushedAnimation()
