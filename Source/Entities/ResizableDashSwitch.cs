@@ -355,8 +355,12 @@ namespace Celeste.Mod.SSMHelper.Entities
 
             // play sounds
             float volume = 0.5f;
-            Audio.Play(SFX.game_gen_diamond_touch).setVolume(volume);
+            Audio.Play(SFX.game_gen_diamond_touch)?.setVolume(volume);
             EventInstance pressSound = Audio.Play(SFX.game_03_clutterswitch_press_books);
+            if (pressSound == null)
+            {
+                return;
+            }
             float quarterTone = 1.0293f;
             float clampedWidthTiles = Calc.Clamp(widthTiles, 2, 20);
             float pitch = 1.16f * (float)Math.Pow(quarterTone, -clampedWidthTiles);
