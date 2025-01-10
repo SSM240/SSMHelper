@@ -9,8 +9,6 @@ fakeBino.nodeLimits = {0, -1}
 fakeBino.placements = {
     name = "normal",
     data = {
-        summit = false,
-        onlyY = false
     }
 }
 
