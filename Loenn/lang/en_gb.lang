@@ -68,6 +68,8 @@ entities.SSMHelper/BloomPulseController.attributes.description.persistent=If the
 
 entities.SSMHelper/ForceLightningLoadController.placements.name.normal=Force Lightning Load Controller
 
+entities.SSMHelper/FakeBino.placements.name.normal=Fake Watchtower
+
 # ------------ triggers ------------
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
