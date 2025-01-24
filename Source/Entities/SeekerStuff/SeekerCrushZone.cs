@@ -68,7 +68,14 @@ namespace Celeste.Mod.SSMHelper.Entities
             }
             else if (capturedSeeker != null)
             {
-                KeepInside(capturedSeeker);
+                if (!capturedSeeker.dead)
+                {
+                    KeepInside(capturedSeeker);
+                }
+                else
+                {
+                    capturedSeeker = null;
+                }
             }
         }
 
