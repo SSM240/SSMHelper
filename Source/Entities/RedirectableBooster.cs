@@ -35,7 +35,7 @@ namespace Celeste.Mod.SSMHelper.Entities
 
         private BoosterDashAssistArrow dashAssistArrow;
 
-        public RedirectableBooster(EntityData data, Vector2 offset) : base(data.Position + offset, true)
+        public RedirectableBooster(EntityData data, Vector2 offset) : base(data.Position + offset, red: true)
         {
             Add(dashAssistArrow = new BoosterDashAssistArrow());
 
