@@ -18,6 +18,9 @@ entities.SSMHelper/SeekerCrushZone.placements.name.normal=Seeker Crush Zone
 entities.SSMHelper/SeekerCrushZoneBlock.placements.name.normal=Seeker Crush Zone Block
 entities.SSMHelper/SeekerCrushBarrier.placements.name.normal=Seeker Crush Barrier
 
+entities.SSMHelper/SeekerFakeWall.placements.name.normal=Seeker Fake Wall
+entities.SSMHelper/SeekerFakeWall.attributes.description.tiletype=Changes the visual appearance of the wall.
+
 entities.SSMHelper/ResizableDashSwitch.placements.name.Up=Resizable Dash Switch (Up)
 entities.SSMHelper/ResizableDashSwitch.placements.name.Down=Resizable Dash Switch (Down)
 entities.SSMHelper/ResizableDashSwitch.placements.name.Left=Resizable Dash Switch (Left)
