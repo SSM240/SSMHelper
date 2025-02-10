@@ -49,7 +49,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         {
             base.Update();
 
-            if (!BoostingPlayer && currentSpriteIndex == 2 && Scene.OnInterval(0.15f))
+            if (!BoostingPlayer && currentSpriteIndex == 2 && Scene.OnInterval(0.15f) && !CollideCheck<FakeWall>())
             {
                 SceneAs<Level>().ParticlesFG.Emit(P_PinkBoosterGlow, 2, sprite.RenderPosition, Vector2.One * 11f);
             }
