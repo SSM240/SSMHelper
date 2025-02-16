@@ -15,16 +15,25 @@ namespace Celeste.Mod.SSMHelper.Entities
         public static readonly Color FillColor = Calc.HexToColor("d365be");
         public static readonly Color ParticleColor = Calc.HexToColor("ff9ae2");
 
+        public string Flag;
+        public EntityID ID;
+
+        private bool flagMode = false;
         private bool removing = false;
         private float removingFlashAlpha;
         private Color removingFlashColor;
         private bool particlesVisible = true;
 
-        public SeekerCrushBarrier(EntityData data, Vector2 offset)
+        public SeekerCrushBarrier(EntityData data, Vector2 offset, EntityID id)
             : base(data, offset)
         {
             Collidable = true;
             SurfaceSoundIndex = SurfaceIndex.DreamBlockActive;
+
+            Flag = data.Attr("flag");
+            flagMode = !string.IsNullOrEmpty(Flag);
+
+            ID = id;
 
             OnDashCollide = OnDashed;
             Add(new ClimbBlocker(edge: true));
@@ -45,6 +54,10 @@ namespace Celeste.Mod.SSMHelper.Entities
         public override void Awake(Scene scene)
         {
             base.Awake(scene);
+            if (flagMode)
+            {
+                return;
+            }
             if (scene.Tracker.CountEntities<Seeker>() == 0 || CollideCheck<Player>())
             {
                 RemoveSelf();
@@ -54,11 +67,20 @@ namespace Celeste.Mod.SSMHelper.Entities
         public override void Update()
         {
             base.Update();
-
-            if (!removing && SceneAs<Level>().Tracker.CountEntities<Seeker>() == 0)
+            if (!removing)
             {
-                removing = true;
-                Add(new Coroutine(RemovalRoutine()));
+                Level level = SceneAs<Level>();
+                if (flagMode && level.Session.GetFlag(Flag))
+                {
+                    removing = true;
+                    Add(new Coroutine(RemovalRoutine()));
+                    level.Session.DoNotLoad.Add(ID);
+                }
+                else if (!flagMode && level.Tracker.CountEntities<Seeker>() == 0)
+                {
+                    removing = true;
+                    Add(new Coroutine(RemovalRoutine()));
+                }
             }
         }
 
@@ -79,10 +101,10 @@ namespace Celeste.Mod.SSMHelper.Entities
             }
             if (removing)
             {
-                float alpha = removingFlashAlpha;
+                float alpha = removingFlashAlpha * 0.6f;
                 if (Settings.Instance.DisableFlashes)
                 {
-                    alpha *= 0.2f;
+                    alpha *= 0.33f;
                 }
                 Draw.Rect(Collider, removingFlashColor * alpha);
             }
@@ -90,11 +112,18 @@ namespace Celeste.Mod.SSMHelper.Entities
 
         private DashCollisionResults OnDashed(Player player, Vector2 direction)
         {
+            Console.WriteLine(direction);
             Flash = 1f;
             Flashing = true;
             Solidify = 1f;
             solidifyDelay = 1f;
             Audio.Play(SFX.game_03_forcefield_bump, Position);
+            if (player.StateMachine.State == Player.StRedDash)
+            {
+                Input.Rumble(RumbleStrength.Medium, RumbleLength.Short);
+                SceneAs<Level>().Displacement.AddBurst(Center, 0.5f, 8f, 48f, 0.4f, Ease.QuadOut, Ease.QuadOut);
+                player.StateMachine.State = Player.StHitSquash;
+            }
             return DashCollisionResults.Bounce;
         }
 

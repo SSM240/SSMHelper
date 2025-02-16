@@ -16,7 +16,9 @@ entities.SSMHelper/DelayedUltraIndicatorController.placements.name.normal=Delaye
 entities.SSMHelper/RedirectableBooster.placements.name.normal=Redirectable Booster
 entities.SSMHelper/SeekerCrushZone.placements.name.normal=Seeker Crush Zone
 entities.SSMHelper/SeekerCrushZoneBlock.placements.name.normal=Seeker Crush Zone Block
+
 entities.SSMHelper/SeekerCrushBarrier.placements.name.normal=Seeker Crush Barrier
+entities.SSMHelper/SeekerCrushBarrier.attributes.description.flag=If empty, will disappear once all seekers in the room are dead.\n\nIf nonempty, will disappear permanently once the flag is set.
 
 entities.SSMHelper/SeekerDeathFlagController.placements.name.normal=Seeker Permadeath Controller
 entities.SSMHelper/SeekerDeathFlagController.attributes.description.flag=The flag that should be set to keep track of seekers being dead.\nDefaults to {roomname}_seekers_dead.

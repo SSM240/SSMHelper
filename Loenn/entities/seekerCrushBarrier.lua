@@ -7,7 +7,8 @@ seekerCrushBarrier.placements = {
     name = "normal",
     data = {
         width = 8,
-        height = 8
+        height = 8,
+        flag = ""
     }
 }
 
