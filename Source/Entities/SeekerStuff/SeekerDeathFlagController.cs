@@ -19,7 +19,6 @@ namespace Celeste.Mod.SSMHelper.Entities.SeekerStuff
             if (string.IsNullOrEmpty(Flag))
             {
                 Flag = $"{data.Level.Name}_seekers_dead";
-                Logger.Log(LogLevel.Debug, nameof(SSMHelperModule), $"Auto flag: {Flag}");
             }
         }
 
