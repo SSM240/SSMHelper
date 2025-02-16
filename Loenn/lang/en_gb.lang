@@ -18,6 +18,9 @@ entities.SSMHelper/SeekerCrushZone.placements.name.normal=Seeker Crush Zone
 entities.SSMHelper/SeekerCrushZoneBlock.placements.name.normal=Seeker Crush Zone Block
 entities.SSMHelper/SeekerCrushBarrier.placements.name.normal=Seeker Crush Barrier
 
+entities.SSMHelper/SeekerDeathFlagController.placements.name.normal=Seeker Permadeath Controller
+entities.SSMHelper/SeekerDeathFlagController.attributes.description.flag=The flag that should be set to keep track of seekers being dead.\nDefaults to {roomname}_seekers_dead.
+
 entities.SSMHelper/SeekerFakeWall.placements.name.normal=Seeker Fake Wall
 entities.SSMHelper/SeekerFakeWall.attributes.description.tiletype=Changes the visual appearance of the wall.
 

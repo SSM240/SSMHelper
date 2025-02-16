@@ -70,6 +70,12 @@ namespace Celeste.Mod.SSMHelper.Entities
             Add(new Coroutine(Sequence()));
         }
 
+        public void Snap(SeekerCrushZone zone)
+        {
+            Vector2 to = zone.BottomCenter - new Vector2(Width / 2, Height);
+            MoveTo(to);
+        }
+
         public IEnumerator Sequence()
         {
             Level level = Scene as Level;

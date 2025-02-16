@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.SSMHelper.Entities.SeekerStuff;
 using Celeste.Mod.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,6 +43,18 @@ namespace Celeste.Mod.SSMHelper.Entities
             if (!hasRenderer)
             {
                 level.Foreground.Backdrops.Add(new SeekerCrushZoneRenderer());
+            }
+        }
+
+        public override void Awake(Scene scene)
+        {
+            base.Awake(scene);
+            if (scene.Tracker.GetEntity<SeekerDeathFlagController>() is { } controller && controller.Activated)
+            {
+                activated = true;
+                Visible = false;
+                SeekerCrushZoneBlock block = scene.Tracker.GetNearestEntity<SeekerCrushZoneBlock>(Position);
+                block?.Snap(this);
             }
         }
 
