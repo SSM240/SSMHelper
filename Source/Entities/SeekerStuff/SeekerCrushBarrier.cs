@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using FMOD.Studio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
@@ -132,6 +133,8 @@ namespace Celeste.Mod.SSMHelper.Entities
             Solidify = 1f;
             solidifyDelay = 1f;
             removing = true;
+            EventInstance instance = Audio.Play(SFX.game_10_glider_emancipate, Center);
+            instance.setVolume(0.6f);
             yield return FlashFadeIn();
             Collidable = false;
             SceneAs<Level>().Tracker.GetEntity<SeekerCrushBarrierRenderer>().Untrack(this);
