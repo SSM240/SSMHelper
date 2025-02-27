@@ -26,6 +26,10 @@ entities.SSMHelper/SeekerDeathFlagController.attributes.description.flag=The fla
 entities.SSMHelper/SeekerFakeWall.placements.name.normal=Seeker Fake Wall
 entities.SSMHelper/SeekerFakeWall.attributes.description.tiletype=Changes the visual appearance of the wall.
 
+entities.SSMHelper/ToggleSwapBlock.placements.name.normal=Toggle Swap Block (Normal)
+entities.SSMHelper/ToggleSwapBlock.placements.name.moon=Toggle Swap Block (Moon)
+entities.SSMHelper/ToggleSwapBlock.attributes.description.renderBG=Whether to render the background.
+
 entities.SSMHelper/ResizableDashSwitch.placements.name.Up=Resizable Dash Switch (Up)
 entities.SSMHelper/ResizableDashSwitch.placements.name.Down=Resizable Dash Switch (Down)
 entities.SSMHelper/ResizableDashSwitch.placements.name.Left=Resizable Dash Switch (Left)
