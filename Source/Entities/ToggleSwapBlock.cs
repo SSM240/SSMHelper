@@ -108,6 +108,35 @@ namespace Celeste.Mod.SSMHelper.Entities
             StopPlayerRunIntoAnimation = lerp <= 0f || lerp >= 1f;
         }
 
+        public override void Render()
+        {
+            Vector2 vector = Position + Shake;
+            if (lerp != target && speed > 0f)
+            {
+                Vector2 vector2 = (end - start).SafeNormalize();
+                if (target == 1)
+                {
+                    vector2 *= -1f;
+                }
+                float blur = this.speed / this.maxForwardSpeed;
+                float len = 16f * blur;
+                for (int i = 2; i < len; i += 2)
+                {
+                    MTexture[,] nineSlice = (target == 1) ? nineSliceGreen : nineSliceRed;
+                    Sprite middle = (target == 1) ? middleGreen : middleRed;
+                    DrawBlockStyle(vector + vector2 * i, Width, Height, nineSlice, middle, Color.White * (1f - i / len));
+                }
+            }
+            if (redAlpha < 1f)
+            {
+                DrawBlockStyle(vector, Width, Height, nineSliceGreen, middleGreen, Color.White);
+            }
+            if (redAlpha > 0f)
+            {
+                DrawBlockStyle(vector, Width, Height, nineSliceRed, middleRed, Color.White * redAlpha);
+            }
+        }
+
         public static void Load()
         {
             On.Celeste.SwapBlock.PathRenderer.Render += On_PathRenderer_Render;
