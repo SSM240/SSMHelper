@@ -24,6 +24,35 @@ namespace Celeste.Mod.SSMHelper.Entities
         : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Enum("theme", Themes.Normal))
         {
             RenderBG = data.Bool("renderBG", true);
+            Remove(Get<DashListener>());
+            Add(new DashListener
+            {
+                OnDash = OnDash
+            });
+            Direction *= -1f; // dumb hack
+        }
+
+        private new void OnDash(Vector2 direction)
+        {
+            Swapping = true;
+            target = 1 - target;
+            Direction *= -1f;
+            burst = (Scene as Level).Displacement.AddBurst(Center, 0.2f, 0f, 16f);
+            float betterLerp = lerp;
+            if (betterLerp > 0.5f)
+            {
+                betterLerp = 1f - betterLerp;
+            }
+            if (betterLerp >= 0.2f)
+            {
+                speed = maxForwardSpeed;
+            }
+            else
+            {
+                speed = MathHelper.Lerp(maxForwardSpeed * 0.333f, maxForwardSpeed, betterLerp / 0.2f);
+            }
+            Audio.Stop(moveSfx);
+            moveSfx = Audio.Play(SFX.game_05_swapblock_move, Center);
         }
 
         // calls Solid.Update while skipping SwapBlock.Update
@@ -36,65 +65,39 @@ namespace Celeste.Mod.SSMHelper.Entities
         public override void Update()
         {
             Solid_Update();
-            if (returnTimer > 0f)
-            {
-                returnTimer -= Engine.DeltaTime;
-                if (returnTimer <= 0f)
-                {
-                    target = 0;
-                    speed = 0f;
-                    returnSfx = Audio.Play("event:/game/05_mirror_temple/swapblock_return", base.Center);
-                }
-            }
             if (burst != null)
             {
-                burst.Position = base.Center;
+                burst.Position = Center;
             }
             redAlpha = Calc.Approach(redAlpha, (target != 1) ? 1 : 0, Engine.DeltaTime * 32f);
-            if (target == 0 && lerp == 0f)
+            if (lerp == 0f || lerp == 1f)
             {
                 middleRed.SetAnimationFrame(0);
                 middleGreen.SetAnimationFrame(0);
             }
-            if (target == 1)
-            {
-                speed = Calc.Approach(speed, maxForwardSpeed, maxForwardSpeed / 0.2f * Engine.DeltaTime);
-            }
-            else
-            {
-                speed = Calc.Approach(speed, maxBackwardSpeed, maxBackwardSpeed / 1.5f * Engine.DeltaTime);
-            }
-            float num = lerp;
+            speed = Calc.Approach(speed, maxForwardSpeed, maxForwardSpeed / 0.2f * Engine.DeltaTime);
+            float prevLerp = lerp;
             lerp = Calc.Approach(lerp, target, speed * Engine.DeltaTime);
-            if (lerp != num)
+            if (lerp != prevLerp)
             {
                 Vector2 liftSpeed = (end - start) * speed;
-                Vector2 position = Position;
-                if (target == 1)
-                {
-                    liftSpeed = (end - start) * maxForwardSpeed;
-                }
-                if (lerp < num)
+                Vector2 prevPosition = Position;
+                liftSpeed = (end - start) * maxForwardSpeed;
+                if (lerp < prevLerp)
                 {
                     liftSpeed *= -1f;
                 }
-                if (target == 1 && base.Scene.OnInterval(0.02f))
+                if (Scene.OnInterval(0.02f))
                 {
                     MoveParticles(end - start);
                 }
                 MoveTo(Vector2.Lerp(start, end, lerp), liftSpeed);
-                if (position != Position)
+                if (prevPosition != Position)
                 {
-                    Audio.Position(moveSfx, base.Center);
-                    Audio.Position(returnSfx, base.Center);
-                    if (Position == start && target == 0)
+                    Audio.Position(moveSfx, Center);
+                    if ((Position == start && target == 0) || (Position == end && target == 1))
                     {
-                        Audio.SetParameter(returnSfx, "end", 1f);
-                        Audio.Play("event:/game/05_mirror_temple/swapblock_return_end", base.Center);
-                    }
-                    else if (Position == end && target == 1)
-                    {
-                        Audio.Play("event:/game/05_mirror_temple/swapblock_move_end", base.Center);
+                        Audio.Play(SFX.game_05_swapblock_move_end, Center);
                     }
                 }
             }
@@ -122,6 +125,7 @@ namespace Celeste.Mod.SSMHelper.Entities
             if (block != null && block is ToggleSwapBlock toggleBlock)
             {
                 oldTheme = block.Theme;
+                // the only thing theme affects in this method is whether the path is drawn
                 block.Theme = toggleBlock.RenderBG ? Themes.Normal : Themes.Moon;
             }
             orig(self);
