@@ -13,6 +13,9 @@ namespace Celeste.Mod.SSMHelper.Entities
     [TrackedAs(typeof(SwapBlock))]
     public class ToggleSwapBlock : SwapBlock
     {
+        public static ParticleType P_MoveBlue;
+        public static ParticleType P_MoveRed;
+
         public bool RenderBG;
 
         public ToggleSwapBlock(Vector2 position, float width, float height, Vector2 node, Themes theme) 
@@ -168,6 +171,68 @@ namespace Celeste.Mod.SSMHelper.Entities
             {
                 DrawBlockStyle(vector, Width, Height, nineSliceRed, middleRed, Color.White * redAlpha);
             }
+        }
+
+        private new void MoveParticles(Vector2 normal)
+        {
+            Vector2 position;
+            Vector2 positionRange;
+            float direction;
+            float add;
+            if (normal.X > 0f)
+            {
+                position = CenterLeft;
+                positionRange = Vector2.UnitY * (Height - 6f);
+                direction = MathF.PI;
+                add = Math.Max(2f, Height / 14f);
+            }
+            else if (normal.X < 0f)
+            {
+                position = CenterRight;
+                positionRange = Vector2.UnitY * (Height - 6f);
+                direction = 0f;
+                add = Math.Max(2f, Height / 14f);
+            }
+            else if (normal.Y > 0f)
+            {
+                position = TopCenter;
+                positionRange = Vector2.UnitX * (Width - 6f);
+                direction = -MathF.PI / 2f;
+                add = Math.Max(2f, Width / 14f);
+            }
+            else
+            {
+                position = BottomCenter;
+                positionRange = Vector2.UnitX * (Width - 6f);
+                direction = MathF.PI / 2f;
+                add = Math.Max(2f, Width / 14f);
+            }
+            particlesRemainder += add;
+            int amount = (int)particlesRemainder;
+            particlesRemainder -= amount;
+            positionRange *= 0.5f;
+            if (target == 1)
+            {
+                SceneAs<Level>().Particles.Emit(P_MoveBlue, amount, position, positionRange, direction);
+            }
+            else
+            {
+                SceneAs<Level>().Particles.Emit(P_MoveRed, amount, position, positionRange, direction);
+            }
+        }
+
+        public static void LoadParticles()
+        {
+            P_MoveBlue = new ParticleType(P_Move)
+            {
+                Color = Calc.HexToColor("36fbbf"),
+                Color2 = Calc.HexToColor("308fbe")
+            };
+            P_MoveRed = new ParticleType(P_Move)
+            {
+                Color = Calc.HexToColor("ffa5a1"),
+                Color2 = Calc.HexToColor("ca2424")
+            };
         }
 
         public static void Load()

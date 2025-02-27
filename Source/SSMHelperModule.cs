@@ -71,6 +71,7 @@ namespace Celeste.Mod.SSMHelper
 
             _CustomEntitySpriteBank = new SpriteBank(GFX.Game, "Graphics/SSMHelper/CustomEntitySprites.xml");
             RedirectableBooster.LoadParticles();
+            ToggleSwapBlock.LoadParticles();
             ResizableDashSwitch.LoadParticles();
             DashBoostField.LoadParticles();
         }
