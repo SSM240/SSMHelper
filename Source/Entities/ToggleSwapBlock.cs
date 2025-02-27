@@ -30,6 +30,39 @@ namespace Celeste.Mod.SSMHelper.Entities
                 OnDash = OnDash
             });
             Direction *= -1f; // dumb hack
+
+            MTexture blockTexture;
+            MTexture blockRedTexture;
+            if (Theme == Themes.Moon)
+            {
+                blockTexture = GFX.Game["objects/SSMHelper/swapblock/moon/block"];
+                blockRedTexture = GFX.Game["objects/SSMHelper/swapblock/moon/blockRed"];
+            }
+            else
+            {
+                blockTexture = GFX.Game["objects/SSMHelper/swapblock/block"];
+                blockRedTexture = GFX.Game["objects/SSMHelper/swapblock/blockRed"];
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    nineSliceGreen[i, j] = blockTexture.GetSubtexture(new Rectangle(i * 8, j * 8, 8, 8));
+                    nineSliceRed[i, j] = blockRedTexture.GetSubtexture(new Rectangle(i * 8, j * 8, 8, 8));
+                }
+            }
+            Remove(middleGreen);
+            Remove(middleRed);
+            if (Theme == Themes.Moon)
+            {
+                Add(middleGreen = GFX.SpriteBank.Create("ssmhelper_swapBlockLightMoon"));
+                Add(middleRed = GFX.SpriteBank.Create("ssmhelper_swapBlockLightRedMoon"));
+            }
+            else
+            {
+                Add(middleGreen = GFX.SpriteBank.Create("ssmhelper_swapBlockLight"));
+                Add(middleRed = GFX.SpriteBank.Create("ssmhelper_swapBlockLightRed"));
+            }
         }
 
         private new void OnDash(Vector2 direction)

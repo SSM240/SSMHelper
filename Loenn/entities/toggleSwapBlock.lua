@@ -9,15 +9,15 @@ local toggleSwapBlock = {}
 
 local themeTextures = {
     normal = {
-        frame = "objects/swapblock/blockRed",
+        frame = "objects/SSMHelper/swapblock/blockRed",
         trail = "objects/swapblock/target",
-        middle = "objects/swapblock/midBlockRed00",
+        middle = "objects/SSMHelper/swapblock/midBlockRed00",
         --path = true
     },
     moon = {
-        frame = "objects/swapblock/moon/blockRed",
+        frame = "objects/SSMHelper/swapblock/moon/blockRed",
         trail = "objects/swapblock/moon/target",
-        middle = "objects/swapblock/moon/midBlockRed00",
+        middle = "objects/SSMHelper/swapblock/moon/midBlockRed00",
         --path = false
     }
 }

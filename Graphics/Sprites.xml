@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+
+	<!-- toggle swap block sprites -->
+	<ssmhelper_swapBlockLight path="objects/SSMHelper/swapblock/" start="idle">
+		<Justify x="0.5" y="0.5"/>
+		<Loop id="idle" path="midBlock" delay="0.08" frames="0-3"/>
+	</ssmhelper_swapBlockLight>
+	<ssmhelper_swapBlockLightRed path="objects/SSMHelper/swapblock/" start="idle">
+		<Justify x="0.5" y="0.5"/>
+		<Loop id="idle" path="midBlockRed" delay="0.08" frames="0-3"/>
+	</ssmhelper_swapBlockLightRed>
+	<ssmhelper_swapBlockLightMoon path="objects/SSMHelper/swapblock/moon/" start="idle">
+		<Justify x="0.5" y="0.5"/>
+		<Loop id="idle" path="midBlock" delay="0.08" frames="0-3"/>
+	</ssmhelper_swapBlockLightMoon>
+	<ssmhelper_swapBlockLightRedMoon path="objects/SSMHelper/swapblock/moon/" start="idle">
+		<Justify x="0.5" y="0.5"/>
+		<Loop id="idle" path="midBlockRed" delay="0.08" frames="0-3"/>
+	</ssmhelper_swapBlockLightRedMoon>
+
+</Sprites>
