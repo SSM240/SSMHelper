@@ -84,3 +84,11 @@ triggers.SSMHelper/CustomCheatTrigger.attributes.description.soundEffect=Sound e
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.flag=The flag to change when the code is entered.
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.enableFlag=Whether the flag should be enabled or disabled.
 triggers.SSMHelper/CustomCheatTrigger.attributes.description.ignoreDirections=If checked, directional inputs (up, down, left, right) will be completely ignored.
+
+triggers.SSMHelper/UnlockCheckpointTrigger.placements.name.normal=Unlock Checkpoint Trigger
+triggers.SSMHelper/UnlockCheckpointTrigger.attributes.description.autoSave=Whether touching the trigger should auto-save your current position in the map,\nlike unlocking a regular checkpoint would.
+triggers.SSMHelper/UnlockCheckpointTrigger.attributes.description.room=The name of the room with the checkpoint to unlock.
+
+triggers.SSMHelper/UnlockCheckpointTriggerAdvanced.placements.name.normal=Unlock Checkpoint Trigger (Advanced)
+triggers.SSMHelper/UnlockCheckpointTriggerAdvanced.attributes.description.autoSave=Whether touching the trigger should auto-save your current position in the map,\nlike unlocking a regular checkpoint would.
+triggers.SSMHelper/UnlockCheckpointTriggerAdvanced.attributes.description.checkpoints=A list of map names and room names to unlock checkpoints for, in the format {SID}:{RoomName}.\n\nFor instance, to unlock the checkpoint in room b-00 of Maps/MyAwesomeCampaign/MapName.bin,\nenter `MyAwesomeCampaign/MapName:b-00`.
