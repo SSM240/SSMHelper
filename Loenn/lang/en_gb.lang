@@ -82,6 +82,8 @@ entities.SSMHelper/ForceLightningLoadController.placements.name.normal=Force Lig
 
 entities.SSMHelper/FakeBino.placements.name.normal=Fake Watchtower
 
+entities.SSMHelper/CustomCassette.placements.name.normal=Cassette (Don't Disable Blocks)
+
 # ------------ triggers ------------
 
 triggers.SSMHelper/DashCancelTrigger.placements.name.normal=Dash Cancel Trigger
