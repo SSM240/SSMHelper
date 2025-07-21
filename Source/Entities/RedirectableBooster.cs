@@ -39,9 +39,9 @@ namespace Celeste.Mod.SSMHelper.Entities
         {
             Add(dashAssistArrow = new BoosterDashAssistArrow());
 
-            Add(sprites[0] = SSMHelperModule.SpriteBank.Create("boosterBlue"));
+            Add(sprites[0] = GFX.SpriteBank.Create("ssmhelper_boosterBlue"));
             sprites[1] = sprite;
-            Add(sprites[2] = SSMHelperModule.SpriteBank.Create("boosterPink"));
+            Add(sprites[2] = GFX.SpriteBank.Create("ssmhelper_boosterPink"));
             SetSprite(2);
         }
 

@@ -32,6 +32,24 @@
         <Anim id="recoverHit" path="hit" delay="0.06" frames="16-19" goto="idle"/>
     </ssmhelper_crystalBombBadelineBoss>
 
+    <!-- redirectable booster -->
+    <ssmhelper_boosterBlue path="objects/SSMHelper/boosters/blue/" start="loop">
+        <Justify x="0.5" y="0.5"/>
+        <Anim id="appear" path="boosterBlue" delay="0.08" frames="26-34" goto="loop"/>
+        <Loop id="loop" path="boosterBlue" delay="0.1" frames="0-4"/>
+        <Loop id="inside" path="boosterBlue" delay="0.1" frames="5-8"/>
+        <Loop id="spin" path="boosterBlue" delay="0.06" frames="18-25"/>
+        <Anim id="pop" path="boosterBlue" delay="0.08" frames="9-17"/>
+    </ssmhelper_boosterBlue>
+    <ssmhelper_boosterPink path="objects/SSMHelper/boosters/pink/" start="loop">
+        <Justify x="0.5" y="0.5"/>
+        <Anim id="appear" path="boosterPink" delay="0.08" frames="26-34" goto="loop"/>
+        <Loop id="loop" path="boosterPink" delay="0.1" frames="0-4"/>
+        <Loop id="inside" path="boosterPink" delay="0.1" frames="5-8"/>
+        <Loop id="spin" path="boosterPink" delay="0.06" frames="18-25"/>
+        <Anim id="pop" path="boosterPink" delay="0.08" frames="9-17"/>
+    </ssmhelper_boosterPink>
+
     <!-- toggle swap block sprites -->
 	<ssmhelper_swapBlockLight path="objects/SSMHelper/swapblock/" start="idle">
 		<Justify x="0.5" y="0.5"/>
