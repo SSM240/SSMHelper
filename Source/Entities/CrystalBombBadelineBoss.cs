@@ -150,7 +150,7 @@ namespace Celeste.Mod.SSMHelper.Entities
         {
             if (self is CrystalBombBadelineBoss)
             {
-                return SSMHelperModule.SpriteBank.Create("crystalBombBadelineBoss");
+                return GFX.SpriteBank.Create("ssmhelper_crystalBombBadelineBoss");
             }
             else
             {

@@ -307,7 +307,7 @@ namespace Celeste.Mod.SSMHelper.Entities
 
         private void AddLightningSprite(Vector2 playerPosition)
         {
-            Sprite lightningSprite = SSMHelperModule.SpriteBank.Create("bigSwitch_lightning");
+            Sprite lightningSprite = GFX.SpriteBank.Create("ssmhelper_bigSwitch_lightning");
             Vector2 playerOffset = playerPosition - Position;
             Vector2 spritePosition = Side switch
             {
