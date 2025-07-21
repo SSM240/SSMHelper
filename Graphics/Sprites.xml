@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <Sprites>
 
     <!--Resizable Dash Switch lightning effect-->
-    <bigSwitch_lightning path="objects/SSMHelper/bigDashSwitch/" start="hit">
+    <ssmhelper_bigSwitch_lightning path="objects/SSMHelper/bigDashSwitch/" start="hit">
         <Justify x="0.5" y="0.5"/>
         <Anim id="hit" path="bigSwitchLightning" delay="0.08" frames="0-4"/>
-    </bigSwitch_lightning>
+    </ssmhelper_bigSwitch_lightning>
     
     <!--Crystal Bomb Badeline Boss-->
-    <crystalBombBadelineBoss path="objects/SSMHelper/crystalBombBadelineBoss/" start="idle">
+    <ssmhelper_crystalBombBadelineBoss path="objects/SSMHelper/crystalBombBadelineBoss/" start="idle">
         <Justify x="0.5" y=".64" />
         <Loop id="idle" path="boss" delay="0.06" frames="0-23"/>
 
@@ -31,6 +30,6 @@
         <Anim id="getHit" path="hit" delay="0.06" frames="0-9" goto="star"/>
         <Loop id="star" path="hit" delay="0.06" frames="10-15"/>
         <Anim id="recoverHit" path="hit" delay="0.06" frames="16-19" goto="idle"/>
-    </crystalBombBadelineBoss>
+    </ssmhelper_crystalBombBadelineBoss>
 
 </Sprites>

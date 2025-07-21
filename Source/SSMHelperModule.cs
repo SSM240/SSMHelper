@@ -11,9 +11,6 @@ namespace Celeste.Mod.SSMHelper
     {
         public static SSMHelperModule Instance;
 
-        public static SpriteBank SpriteBank => Instance._CustomEntitySpriteBank;
-        private SpriteBank _CustomEntitySpriteBank;
-
         public SSMHelperModule()
         {
             Instance = this;
@@ -58,8 +55,6 @@ namespace Celeste.Mod.SSMHelper
         public override void LoadContent(bool firstLoad)
         {
             base.LoadContent(firstLoad);
-
-            _CustomEntitySpriteBank = new SpriteBank(GFX.Game, "Graphics/SSMHelper/CustomEntitySprites.xml");
 
             ResizableDashSwitch.LoadParticles();
             DashBoostField.LoadParticles();
