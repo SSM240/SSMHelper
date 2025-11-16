@@ -49,19 +49,19 @@ namespace Celeste.Mod.SSMHelper
         {
             ILCursor cursor = new ILCursor(il);
             // this is a godawful way of doing this but it should work hopefully
-            if (cursor.TryGotoNext(MoveType.Before, instr => instr.MatchLdloc(4), instr => instr.MatchLdloc(7)))
+            if (cursor.TryGotoNext(MoveType.Before, instr => instr.MatchLdloc(5), instr => instr.MatchLdloc(8)))
             {
                 // texture
-                cursor.Emit(OpCodes.Ldloc_S, (byte)7);
+                cursor.Emit(OpCodes.Ldloc_S, (byte)8);
                 // tileGrid
                 cursor.Emit(OpCodes.Ldarg_0);
                 // position
                 cursor.Emit(OpCodes.Ldarg_1);
                 // i and j because we need these too
-                cursor.Emit(OpCodes.Ldloc_S, (byte)5);
                 cursor.Emit(OpCodes.Ldloc_S, (byte)6);
+                cursor.Emit(OpCodes.Ldloc_S, (byte)7);
                 // color
-                cursor.Emit(OpCodes.Ldloc_3);
+                cursor.Emit(OpCodes.Ldloc_S, (byte)4);
                 cursor.EmitDelegate(CheckTextureAndRender);
             }
         }
