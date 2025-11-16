@@ -1,9 +1,9 @@
 - Name: SSMHelper
-  Version: 1.2.12
+  Version: 1.2.13
   DLL: bin/SSMHelper.dll
   Dependencies:
     - Name: EverestCore
-      Version: 1.4673.0
+      Version: 1.5986.0
   OptionalDependencies:
     - Name: CavernHelper
       Version: 1.3.7
