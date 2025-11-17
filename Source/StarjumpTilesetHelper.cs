@@ -68,6 +68,10 @@ namespace Celeste.Mod.SSMHelper
 
         private static void CheckTextureAndRender(MTexture texture, TileGrid tileGrid, Vector2 position, int i, int j, Color color)
         {
+            if (texture.Parent == null)
+            {
+                return;
+            }
             string parentPath = texture.Parent.AtlasPath;
             if (starJumpTextures.TryGetValue(parentPath, out float alpha))
             {
