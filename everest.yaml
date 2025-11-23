@@ -1,5 +1,5 @@
 - Name: SSMHelper
-  Version: 1.2.14
+  Version: 1.2.15
   DLL: bin/SSMHelper.dll
   Dependencies:
     - Name: EverestCore
