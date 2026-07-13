@@ -137,11 +137,11 @@ namespace Celeste.Mod.SSMHelper.Entities
         public override void Update()
         {
             base.Update();
-            if (Collidable && CollideFirst<Player>() is Player player)
+            if (Collidable && Scene.Tracker.GetEntity<Player>() is Player player)
             {
                 if (player.StateMachine.State == Player.StDreamDash)
                 {
-                    bool collided = Side switch
+                    bool correctDirection = Side switch
                     {
                         Sides.Right => player.Speed.X > 0,
                         Sides.Left => player.Speed.X < 0,
@@ -149,6 +149,23 @@ namespace Celeste.Mod.SSMHelper.Entities
                         Sides.Down => player.Speed.Y > 0,
                         _ => throw new InvalidOperationException("Dash switch direction is invalid.")
                     };
+                    if (!correctDirection)
+                    {
+                        return;
+                    }
+
+                    bool overlapping = player.CollideCheck(this);
+                    bool collided = overlapping;
+
+                    if (!collided)
+                    {
+                        // check slightly further ahead specifically if player is about to leave the dream block
+                        // this fixes an annoying edge case paired with bouncy dream blocks without affecting existing setups
+                        player.NaiveMove(player.Speed * Engine.DeltaTime);
+                        collided = player.CollideCheck(this) && !player.CollideCheck<DreamBlock>();
+                        player.NaiveMove(-player.Speed * Engine.DeltaTime);
+                    }
+
                     if (collided)
                     {
                         Vector2 oldCurrentLiftSpeed = player.currentLiftSpeed;
@@ -160,7 +177,11 @@ namespace Celeste.Mod.SSMHelper.Entities
                         //player.Speed *= -1f;
                         if (bounceInDreamBlock)
                         {
-                            player.NaiveMove(-player.Speed * Engine.DeltaTime);  // compensate for speed to avoid exiting dream block too early
+                            if (overlapping)
+                            {
+                                // compensate for speed to avoid exiting dream block too early
+                                player.NaiveMove(-player.Speed * Engine.DeltaTime);
+                            }
                             bool horizontal = Side == Sides.Right || Side == Sides.Left;
                             if (horizontal)
                             {
