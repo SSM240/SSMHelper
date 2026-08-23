@@ -51,8 +51,11 @@ namespace Celeste.Mod.SSMHelper.Triggers
                 player.StateMachine.ForceState(Player.StNormal);
                 // convert player's distance traveled last frame into actual speed
                 player.Speed = (playerCurrentPosition - playerLastPosition) / Engine.DeltaTime;
-                DynData<Player> playerData = new(player);
-                playerData.Set("forceMoveXTimer", 0f);
+                if (GravityHelperImports.IsPlayerInverted?.Invoke() ?? false)
+                {
+                    player.Speed.Y *= -1f;
+                }
+                player.forceMoveXTimer = 0f;
             }
         }
     }

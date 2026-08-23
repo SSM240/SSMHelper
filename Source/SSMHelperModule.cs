@@ -37,6 +37,7 @@ namespace Celeste.Mod.SSMHelper
             ForceLightningLoadController.Load();
 
             typeof(CavernHelperImports).ModInterop();
+            typeof(GravityHelperImports).ModInterop();
         }
 
         public override void Unload()
