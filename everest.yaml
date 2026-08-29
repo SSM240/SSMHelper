@@ -7,3 +7,5 @@
   OptionalDependencies:
     - Name: CavernHelper
       Version: 1.3.7
+    - Name: GravityHelper
+      Version: 1.2.28

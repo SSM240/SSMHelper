@@ -42,6 +42,7 @@ namespace Celeste.Mod.SSMHelper
             SeekerSpawnFacingTrigger.Load();
 
             typeof(CavernHelperImports).ModInterop();
+            typeof(GravityHelperImports).ModInterop();
         }
 
         public override void Unload()
